@@ -1,8 +1,9 @@
 FROM ubuntu:16.04
 
-ARG MODEL_NYU=https://cs.nyu.edu/~deigen/depth/depth.tgz
+ARG MODEL_NET=https://cs.nyu.edu/~deigen/depth/depth.tgz
 ARG MODEL_KITTI=https://cs.nyu.edu/~deigen/depth/kitti_model.tgz
-ARG DEPTH_MODEL=${MODEL_KITTI}
+ARG NNET=https://cs.nyu.edu/~deigen/dnl/dnl-depthnormals.tgz
+
 
 RUN apt-get clean && apt-get update && apt-get install -y \
       build-essential \
@@ -11,11 +12,12 @@ RUN apt-get clean && apt-get update && apt-get install -y \
       python-dev \
       && rm -rf /var/lib/apt/lists/*
 
-RUN pip install Theano numpy==1.12 scipy==0.17
+RUN pip install Theano numpy==1.12 scipy==0.17 Pillow==6.2.2
 
-ADD ${DEPTH_MODEL} /depth.tgz
+ADD ${MODEL_NET} /depth.tgz
+ADD ${MODEL_KITTI} /kittt.tgz
 
-RUN tar xf depth.tgz && rm depth.tgz
+RUN tar xf depth.tgz && tar xf kittt.tgz
 
 WORKDIR /depth
 
