@@ -15,7 +15,7 @@ RUN pip install Theano numpy==1.12 scipy==0.17
 
 ADD ${DEPTH_MODEL} /depth.tgz
 
-RUN tar xf depth.tgz
+RUN tar xf depth.tgz && rm depth.tgz
 
 WORKDIR /depth
 
