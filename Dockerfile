@@ -13,7 +13,9 @@ RUN apt-get clean && apt-get update && apt-get install -y \
 
 RUN pip install Theano numpy==1.12 scipy==0.17
 
-ADD ${DEPTH_MODEL} /depth
+ADD ${DEPTH_MODEL} /depth.tgz
+
+RUN tar xf depth.tgz
 
 WORKDIR /depth
 
